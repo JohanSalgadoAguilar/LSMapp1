@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Cambia NoActionBar por DarkActionBar o Bridge -->
+    <style name="Theme.LSMaPP" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Color de la barra morada superior -->
+        <item name="colorPrimary">#673AB7</item>
+        <item name="colorPrimaryVariant">#512DA8</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+    </style>
+</resources>
