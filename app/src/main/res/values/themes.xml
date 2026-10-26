@@ -1,9 +1,26 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Cambia NoActionBar por DarkActionBar o Bridge -->
+
     <style name="Theme.LSMaPP" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Color de la barra morada superior -->
-        <item name="colorPrimary">#673AB7</item>
-        <item name="colorPrimaryVariant">#512DA8</item>
+        <!-- Color turquesa para la barra superior y elementos principales -->
+        <item name="colorPrimary">#0A848F</item>
+        <item name="colorPrimaryVariant">#07656E</item>
         <item name="colorOnPrimary">#FFFFFF</item>
+
+        <!-- Animación de transición entre pantallas -->
+        <item name="android:windowAnimationStyle">@style/AnimacionActividades</item>
     </style>
+
+    <style name="AnimacionActividades" parent="@android:style/Animation.Activity">
+        <!-- Al abrir una pantalla nueva -->
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <!-- Al volver a la pantalla anterior -->
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <style name="Theme.LSMApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Aquí van otros items -->
+    </style>
+
 </resources>

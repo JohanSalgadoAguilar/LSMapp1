@@ -1,7 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <!-- Base application theme. -->
     <style name="Base.Theme.LSMaPP" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+        <!-- Animación de transición entre pantallas -->
+        <item name="android:windowAnimationStyle">@style/AnimacionActividades</item>
     </style>
+
+    <style name="Theme.LSMApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Aquí van otros items -->
+    </style>
+
 </resources>

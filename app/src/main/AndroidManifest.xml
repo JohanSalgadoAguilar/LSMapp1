@@ -14,24 +14,50 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LSMaPP">
 
+        <!-- Pantalla de Login (Ahora es el punto de inicio principal de la app) -->
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <!-- Pantalla de Registro de nuevos usuarios -->
+        <activity
+            android:name=".RegistroActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!-- Pantalla de carga (Splash) -->
+        <activity
+            android:name=".SplashActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!-- Pantalla Principal / Menú -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Catálogo de Señas -->
         <activity
             android:name=".CatalogoActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <!-- Nueva pantalla para ver la seña en grande -->
+        <!-- Vista de detalle y galería deslizable -->
         <activity
             android:name=".DetalleSenaActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Minijuego interactivo -->
+        <activity
+            android:name=".MinijuegoActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 

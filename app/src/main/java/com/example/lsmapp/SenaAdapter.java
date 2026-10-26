@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,9 +15,15 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class SenaAdapter extends RecyclerView.Adapter<SenaAdapter.ViewHolder> {
+public class SenaAdapter extends RecyclerView.Adapter<SenaAdapter.SenaViewHolder> {
 
-    private final List<Sena> listaSenas;
+    private Context context;
+    private List<Sena> listaSenas;
+
+    public SenaAdapter(Context context, List<Sena> listaSenas) {
+        this.context = context;
+        this.listaSenas = listaSenas;
+    }
 
     public SenaAdapter(List<Sena> listaSenas) {
         this.listaSenas = listaSenas;
@@ -24,52 +31,59 @@ public class SenaAdapter extends RecyclerView.Adapter<SenaAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_sena, parent, false);
-        return new ViewHolder(view);
+    public SenaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (context == null) {
+            context = parent.getContext();
+        }
+        View view = LayoutInflater.from(context).inflate(R.layout.item_sena, parent, false);
+        return new SenaViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SenaViewHolder holder, int position) {
+        // Obtenemos el objeto correspondiente a esta posición exacta de la lista ordenada
         Sena sena = listaSenas.get(position);
 
-        // Si el nombre no es nulo ni está vacío, lo muestra; si no, pone un texto por defecto
-        if (sena.getNombre() != null && !sena.getNombre().trim().isEmpty()) {
-            holder.tvNombre.setText(sena.getNombre());
-        } else {
-            holder.tvNombre.setText("Sin nombre");
+        holder.tvNombreSena.setText(sena.getNombre());
+
+        Context currentContext = holder.itemView.getContext();
+
+        // Limpiar imagen anterior de Glide para evitar cruces al reciclar vistas
+        Glide.with(currentContext).clear(holder.imgSena);
+
+        // Cargar la imagen correspondiente usando Glide
+        String imgUrl = sena.getImagenUrl();
+        if (imgUrl != null && !imgUrl.trim().isEmpty()) {
+            Glide.with(currentContext)
+                    .load(imgUrl)
+                    .into(holder.imgSena);
         }
 
-        // Cargar imagen con Glide
-        Glide.with(holder.itemView.getContext())
-                .load(sena.getImagenUrl())
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .into(holder.imgSena);
-
-        // Evento al tocar cualquier seña para verla en pantalla completa
+        // Usamos la posición directa del bucle para asegurar que el click apunte al objeto correcto
         holder.itemView.setOnClickListener(v -> {
-            Context context = v.getContext();
-            Intent intent = new Intent(context, DetalleSenaActivity.class);
+            Intent intent = new Intent(currentContext, DetalleSenaActivity.class);
             intent.putExtra("NOMBRE_SENA", sena.getNombre());
-            intent.putExtra("URL_SENA", sena.getImagenUrl());
-            context.startActivity(intent);
+            intent.putExtra("IMAGEN_SENA", sena.getImagenUrl());
+            intent.putExtra("VIDEO_SENA", sena.getVideoUrl());
+            intent.putExtra("POSICION_ACTUAL", position);
+            intent.putExtra("CATEGORIA_ID", sena.getCategoriaId());
+            currentContext.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return listaSenas.size();
+        return listaSenas != null ? listaSenas.size() : 0;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNombre;
+    public static class SenaViewHolder extends RecyclerView.ViewHolder {
         ImageView imgSena;
+        TextView tvNombreSena;
 
-        public ViewHolder(@NonNull View itemView) {
+        public SenaViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvNombre = itemView.findViewById(R.id.tvNombreSena);
             imgSena = itemView.findViewById(R.id.imgSena);
+            tvNombreSena = itemView.findViewById(R.id.tvNombreSena);
         }
     }
 }

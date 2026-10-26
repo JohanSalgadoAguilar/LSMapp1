@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">LSMaPP</string>
+    <string name="app_name">Aprende LSM</string>
+    <string name="open">Abrir menú</string>
+    <string name="close">Cerrar menú</string>
 </resources>
